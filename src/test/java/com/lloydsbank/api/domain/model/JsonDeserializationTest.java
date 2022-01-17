@@ -7,10 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 class JsonDeserializationTest {
 
-    ObjectMapper objectMapper;
+    final ObjectMapper objectMapper;
 
     JsonDeserializationTest() {
         objectMapper = new ObjectMapper();
@@ -21,9 +22,7 @@ class JsonDeserializationTest {
 
         ApiAtmResponse result = null;
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("testdata.json").getFile());
-            result = objectMapper.readValue(file, ApiAtmResponse.class);
+            result = objectMapper.readValue(jsonFromResource("testdata.json"), ApiAtmResponse.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -39,6 +38,12 @@ class JsonDeserializationTest {
                 () -> Assertions.assertNotNull(apiAtmResponse.getData().size()),
                 () -> Assertions.assertNotNull(apiAtmResponse.getData())
         );
+    }
+
+    public File jsonFromResource(String fileName) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(Objects.requireNonNull(classLoader.getResource(fileName)).getFile());
+        return file;
     }
 
 }

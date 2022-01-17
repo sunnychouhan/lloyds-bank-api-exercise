@@ -13,16 +13,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApiServiceTest {
-    ApiService apiService;
+    final ApiService apiService;
 
     ApiServiceTest() {
         apiService = new ApiService();
@@ -52,7 +51,7 @@ class ApiServiceTest {
     }
 
     private static Object getAtmDataList(String Id) {
-        List<AtmDetail> atmDetails = Arrays.asList(getAtmDetail(Id));
+        List<AtmDetail> atmDetails = Collections.singletonList(getAtmDetail(Id));
         List<Brand> brands = Arrays.asList(
                 Brand.builder()
                         .atm(atmDetails)

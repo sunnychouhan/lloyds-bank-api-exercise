@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
-
 @RestController
 @RequestMapping("/api")
 @Slf4j
